@@ -2,18 +2,18 @@
   "_args": [
     [
       {
-        "raw": "ng2-toasty",
+        "raw": "ng2-toasty@^2.3.0",
         "scope": null,
         "escapedName": "ng2-toasty",
         "name": "ng2-toasty",
-        "rawSpec": "",
-        "spec": "latest",
-        "type": "tag"
+        "rawSpec": "^2.3.0",
+        "spec": ">=2.3.0 <3.0.0",
+        "type": "range"
       },
       "C:\\Users\\skota\\Work\\smart"
     ]
   ],
-  "_from": "ng2-toasty@latest",
+  "_from": "ng2-toasty@>=2.3.0 <3.0.0",
   "_id": "ng2-toasty@2.3.0",
   "_inCache": true,
   "_location": "/ng2-toasty",
@@ -29,13 +29,13 @@
   "_npmVersion": "3.10.5",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "ng2-toasty",
+    "raw": "ng2-toasty@^2.3.0",
     "scope": null,
     "escapedName": "ng2-toasty",
     "name": "ng2-toasty",
-    "rawSpec": "",
-    "spec": "latest",
-    "type": "tag"
+    "rawSpec": "^2.3.0",
+    "spec": ">=2.3.0 <3.0.0",
+    "type": "range"
   },
   "_requiredBy": [
     "#USER",
@@ -44,7 +44,7 @@
   "_resolved": "https://registry.npmjs.org/ng2-toasty/-/ng2-toasty-2.3.0.tgz",
   "_shasum": "2f91b61acb85b0d431b26665da6ec3c6f7a0bb81",
   "_shrinkwrap": null,
-  "_spec": "ng2-toasty",
+  "_spec": "ng2-toasty@^2.3.0",
   "_where": "C:\\Users\\skota\\Work\\smart",
   "author": {
     "name": "Sergey Akopkokhyants"
