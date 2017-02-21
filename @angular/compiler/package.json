@@ -2,49 +2,50 @@
   "_args": [
     [
       {
-        "raw": "@angular/compiler@~2.4.0",
+        "raw": "@angular/compiler@2.4.8",
         "scope": "@angular",
         "escapedName": "@angular%2fcompiler",
         "name": "@angular/compiler",
-        "rawSpec": "~2.4.0",
-        "spec": ">=2.4.0 <2.5.0",
-        "type": "range"
+        "rawSpec": "2.4.8",
+        "spec": "2.4.8",
+        "type": "version"
       },
-      "C:\\Users\\skota\\Work\\smart\\quickstart"
+      "C:\\Users\\skota\\Work\\smart"
     ]
   ],
-  "_from": "@angular/compiler@>=2.4.0 <2.5.0",
-  "_id": "@angular/compiler@2.4.2",
+  "_from": "@angular/compiler@2.4.8",
+  "_id": "@angular/compiler@2.4.8",
   "_inCache": true,
   "_location": "/@angular/compiler",
-  "_nodeVersion": "6.9.1",
+  "_nodeVersion": "6.9.5",
   "_npmOperationalInternal": {
     "host": "packages-18-east.internal.npmjs.com",
-    "tmp": "tmp/compiler-2.4.2.tgz_1483735974235_0.09755354793742299"
+    "tmp": "tmp/compiler-2.4.8.tgz_1487455854742_0.31121070915833116"
   },
   "_npmUser": {
     "name": "angular",
     "email": "angular-core+npm@google.com"
   },
-  "_npmVersion": "3.10.8",
+  "_npmVersion": "3.10.10",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "@angular/compiler@~2.4.0",
+    "raw": "@angular/compiler@2.4.8",
     "scope": "@angular",
     "escapedName": "@angular%2fcompiler",
     "name": "@angular/compiler",
-    "rawSpec": "~2.4.0",
-    "spec": ">=2.4.0 <2.5.0",
-    "type": "range"
+    "rawSpec": "2.4.8",
+    "spec": "2.4.8",
+    "type": "version"
   },
   "_requiredBy": [
+    "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/@angular/compiler/-/compiler-2.4.2.tgz",
-  "_shasum": "0b1f63059330a922cd3b86444a705ca8199d69c2",
+  "_resolved": "https://registry.npmjs.org/@angular/compiler/-/compiler-2.4.8.tgz",
+  "_shasum": "fa788fc8bed9f322b040af2b9a06a70991390e23",
   "_shrinkwrap": null,
-  "_spec": "@angular/compiler@~2.4.0",
-  "_where": "C:\\Users\\skota\\Work\\smart\\quickstart",
+  "_spec": "@angular/compiler@2.4.8",
+  "_where": "C:\\Users\\skota\\Work\\smart",
   "author": {
     "name": "angular"
   },
@@ -56,8 +57,8 @@
   "devDependencies": {},
   "directories": {},
   "dist": {
-    "shasum": "0b1f63059330a922cd3b86444a705ca8199d69c2",
-    "tarball": "https://registry.npmjs.org/@angular/compiler/-/compiler-2.4.2.tgz"
+    "shasum": "fa788fc8bed9f322b040af2b9a06a70991390e23",
+    "tarball": "https://registry.npmjs.org/@angular/compiler/-/compiler-2.4.8.tgz"
   },
   "homepage": "https://github.com/angular/angular#readme",
   "license": "MIT",
@@ -72,7 +73,7 @@
   "name": "@angular/compiler",
   "optionalDependencies": {},
   "peerDependencies": {
-    "@angular/core": "2.4.2"
+    "@angular/core": "2.4.8"
   },
   "readme": "ERROR: No README data found!",
   "repository": {
@@ -81,5 +82,5 @@
   },
   "scripts": {},
   "typings": "index.d.ts",
-  "version": "2.4.2"
+  "version": "2.4.8"
 }

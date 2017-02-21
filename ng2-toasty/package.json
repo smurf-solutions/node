@@ -2,49 +2,49 @@
   "_args": [
     [
       {
-        "raw": "ng2-toasty@^2.3.0",
+        "raw": "ng2-toasty@2.4.0",
         "scope": null,
         "escapedName": "ng2-toasty",
         "name": "ng2-toasty",
-        "rawSpec": "^2.3.0",
-        "spec": ">=2.3.0 <3.0.0",
-        "type": "range"
+        "rawSpec": "2.4.0",
+        "spec": "2.4.0",
+        "type": "version"
       },
       "C:\\Users\\skota\\Work\\smart"
     ]
   ],
-  "_from": "ng2-toasty@>=2.3.0 <3.0.0",
-  "_id": "ng2-toasty@2.3.0",
+  "_from": "ng2-toasty@2.4.0",
+  "_id": "ng2-toasty@2.4.0",
   "_inCache": true,
   "_location": "/ng2-toasty",
-  "_nodeVersion": "4.2.5",
+  "_nodeVersion": "6.9.5",
   "_npmOperationalInternal": {
-    "host": "packages-18-east.internal.npmjs.com",
-    "tmp": "tmp/ng2-toasty-2.3.0.tgz_1485034425787_0.0936610959470272"
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/ng2-toasty-2.4.0.tgz_1487099837309_0.42093907087109983"
   },
   "_npmUser": {
     "name": "akserg",
     "email": "akserg@gmail.com"
   },
-  "_npmVersion": "3.10.5",
+  "_npmVersion": "3.10.10",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "ng2-toasty@^2.3.0",
+    "raw": "ng2-toasty@2.4.0",
     "scope": null,
     "escapedName": "ng2-toasty",
     "name": "ng2-toasty",
-    "rawSpec": "^2.3.0",
-    "spec": ">=2.3.0 <3.0.0",
-    "type": "range"
+    "rawSpec": "2.4.0",
+    "spec": "2.4.0",
+    "type": "version"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/ng2-toasty/-/ng2-toasty-2.3.0.tgz",
-  "_shasum": "2f91b61acb85b0d431b26665da6ec3c6f7a0bb81",
+  "_resolved": "https://registry.npmjs.org/ng2-toasty/-/ng2-toasty-2.4.0.tgz",
+  "_shasum": "04022d878d47d64ee14b15905b032acc4205660c",
   "_shrinkwrap": null,
-  "_spec": "ng2-toasty@^2.3.0",
+  "_spec": "ng2-toasty@2.4.0",
   "_where": "C:\\Users\\skota\\Work\\smart",
   "author": {
     "name": "Sergey Akopkokhyants"
@@ -60,17 +60,18 @@
   "dependencies": {},
   "description": "Angular2 Toasty component shows growl-style alerts and messages for your web app",
   "devDependencies": {
-    "@angular/common": "^2.4.4",
-    "@angular/compiler": "^2.4.4",
-    "@angular/compiler-cli": "^2.4.4",
-    "@angular/core": "^2.4.4",
-    "@angular/platform-browser": "^2.4.4",
-    "@angular/platform-browser-dynamic": "^2.4.4",
-    "@angular/platform-server": "^2.4.4",
+    "@angular/common": "^2.4.7",
+    "@angular/compiler": "^2.4.7",
+    "@angular/compiler-cli": "^2.4.7",
+    "@angular/core": "^2.4.7",
+    "@angular/platform-browser": "^2.4.7",
+    "@angular/platform-browser-dynamic": "^2.4.7",
+    "@angular/platform-server": "^2.4.7",
     "@types/hammerjs": "2.0.33",
     "@types/jasmine": "2.5.37",
     "@types/node": "6.0.46",
     "awesome-typescript-loader": "2.2.4",
+    "cash-cp": "^0.2.0",
     "codelyzer": "2.0.0-beta.2",
     "commitizen": "2.8.6",
     "core-js": "2.4.1",
@@ -87,7 +88,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.1",
     "loader-utils": "~0.2.16",
-    "reflect-metadata": "0.1.8",
+    "reflect-metadata": "^0.1.8",
     "rxjs": "^5.0.3",
     "semantic-release": "4.3.5",
     "source-map-loader": "0.1.5",
@@ -100,10 +101,10 @@
   },
   "directories": {},
   "dist": {
-    "shasum": "2f91b61acb85b0d431b26665da6ec3c6f7a0bb81",
-    "tarball": "https://registry.npmjs.org/ng2-toasty/-/ng2-toasty-2.3.0.tgz"
+    "shasum": "04022d878d47d64ee14b15905b032acc4205660c",
+    "tarball": "https://registry.npmjs.org/ng2-toasty/-/ng2-toasty-2.4.0.tgz"
   },
-  "gitHead": "511cb24ab65af49073212b879a62c226d372a6fd",
+  "gitHead": "ff826da700d822f05203e7c63efcdd44d39442b1",
   "homepage": "https://github.com/akserg/ng2-toasty",
   "keywords": [
     "angular",
@@ -123,7 +124,7 @@
   "name": "ng2-toasty",
   "optionalDependencies": {},
   "peerDependencies": {
-    "@angular/core": "^2.4.4"
+    "@angular/core": "^2.4.7"
   },
   "readme": "ERROR: No README data found!",
   "repository": {
@@ -139,5 +140,5 @@
     "test-watch": "tsc && karma start --no-single-run --auto-watch"
   },
   "typings": "index.d.ts",
-  "version": "2.3.0"
+  "version": "2.4.0"
 }

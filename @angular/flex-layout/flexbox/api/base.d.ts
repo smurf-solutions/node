@@ -1,10 +1,15 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { ElementRef, Renderer, OnDestroy } from '@angular/core';
 import { ResponsiveActivation } from '../responsive/responsive-activation';
 import { MediaMonitor } from '../../media-query/media-monitor';
 import { MediaQuerySubscriber } from '../../media-query/media-change';
 /**
- * @internal
- *
  * Definition of a css style. Either a property name (e.g. "flex-basis") or an object
  * map of property name and value (e.g. {display: 'none', flex-order: 5}).
  */
@@ -13,9 +18,13 @@ export declare type StyleDefinition = string | {
 };
 /** Abstract base class for the Layout API styling directives. */
 export declare abstract class BaseFxDirective implements OnDestroy {
-    private _mediaMonitor;
+    protected _mediaMonitor: MediaMonitor;
     protected _elementRef: ElementRef;
-    private _renderer;
+    protected _renderer: Renderer;
+    /**
+     * Original dom Elements CSS display style
+     */
+    protected _display: any;
     /**
      * MediaQuery Activation Tracker
      */
@@ -33,6 +42,17 @@ export declare abstract class BaseFxDirective implements OnDestroy {
      */
     protected _queryInput(key: any): any;
     ngOnDestroy(): void;
+    /**
+     * Was the directive's default selector used ?
+     * If not, use the fallback value!
+     */
+    protected _getDefaultVal(key: string, fallbackVal: any): string | boolean;
+    /**
+     * Quick accessor to the current HTMLElement's `display` style
+     * Note: this allows use to preserve the original style
+     * and optional restore it when the mediaQueries deactivate
+     */
+    protected _getDisplayStyle(source?: HTMLElement): string;
     /**
      * Applies styles given via string pair or object map to the directive element.
      */
@@ -56,4 +76,8 @@ export declare abstract class BaseFxDirective implements OnDestroy {
      * Special accessor to query for all child 'element' nodes regardless of type, class, etc.
      */
     protected readonly childrenNodes: any[];
+    /**
+     * Fast validator for presence of attribute on the host element
+     */
+    protected hasKeyValue(key: any): boolean;
 }

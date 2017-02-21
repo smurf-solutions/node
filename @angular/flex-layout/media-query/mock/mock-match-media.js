@@ -16,6 +16,10 @@ export var MockMatchMedia = (function (_super) {
     function MockMatchMedia(_zone, _breakpoints) {
         _super.call(this, _zone);
         this._breakpoints = _breakpoints;
+        /**
+         * Special flag used to test BreakPoint registrations with MatchMedia
+         */
+        this.autoRegisterQueries = true;
         this._actives = [];
         this._actives = [];
     }
@@ -66,16 +70,20 @@ export var MockMatchMedia = (function (_super) {
         if (useOverlaps) {
             var bp = this._breakpoints.findByQuery(mediaQuery);
             switch (bp ? bp.alias : 'unknown') {
-                case 'xl': this._activateByAlias('gt-lg'); // note the fall-thrus
+                case 'xl':
+                    this._activateByAlias('gt-lg'); // note the fall-thrus
                 case 'gt-lg':
-                case 'lg': this._activateByAlias('gt-md');
+                case 'lg':
+                    this._activateByAlias('gt-md');
                 case 'gt-md':
-                case 'md': this._activateByAlias('gt-sm');
+                case 'md':
+                    this._activateByAlias('gt-sm');
                 case 'gt-sm':
                 case 'sm':
                     this._activateByAlias('gt-xs');
                     break;
-                default: break;
+                default:
+                    break;
             }
         }
         // Activate last since the responsiveActivation is watching *this* mediaQuery
@@ -116,7 +124,7 @@ export var MockMatchMedia = (function (_super) {
      * Insure the mediaQuery is registered with MatchMedia
      */
     MockMatchMedia.prototype._registerMediaQuery = function (mediaQuery) {
-        if (!this._registry.has(mediaQuery)) {
+        if (!this._registry.has(mediaQuery) && this.autoRegisterQueries) {
             this.registerQuery(mediaQuery);
         }
     };
@@ -156,12 +164,16 @@ export var MockMediaQueryList = (function () {
         this._listeners = [];
     }
     Object.defineProperty(MockMediaQueryList.prototype, "matches", {
-        get: function () { return this._isActive; },
+        get: function () {
+            return this._isActive;
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MockMediaQueryList.prototype, "media", {
-        get: function () { return this._mediaQuery; },
+        get: function () {
+            return this._mediaQuery;
+        },
         enumerable: true,
         configurable: true
     });
@@ -203,10 +215,12 @@ export var MockMediaQueryList = (function () {
         if (this._listeners.indexOf(listener) === -1) {
             this._listeners.push(listener);
         }
-        if (this._isActive)
+        if (this._isActive) {
             listener(this);
+        }
     };
-    MockMediaQueryList.prototype.removeListener = function (listener) { };
+    MockMediaQueryList.prototype.removeListener = function (listener) {
+    };
     return MockMediaQueryList;
 }());
-//# sourceMappingURL=/Users/jelbourn/flex-layout/src/lib/media-query/mock/mock-match-media.js.map
+//# sourceMappingURL=/usr/local/google/home/tinagao/WebstormProjects/caretaker/flex-layout/src/lib/media-query/mock/mock-match-media.js.map

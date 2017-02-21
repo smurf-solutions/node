@@ -3,7 +3,7 @@
  */
 export var MediaChange = (function () {
     function MediaChange(matches, // Is the mq currently activated
-        mediaQuery, // e.g.   screen and (min-width: 600px) and (max-width: 959px)
+        mediaQuery, // e.g.   (min-width: 600px) and (max-width: 959px)
         mqAlias, // e.g.   gt-sm, md, gt-lg
         suffix // e.g.   GtSM, Md, GtLg
         ) {
@@ -18,4 +18,4 @@ export var MediaChange = (function () {
     }
     return MediaChange;
 }());
-//# sourceMappingURL=/Users/jelbourn/flex-layout/src/lib/media-query/media-change.js.map
+//# sourceMappingURL=/usr/local/google/home/tinagao/WebstormProjects/caretaker/flex-layout/src/lib/media-query/media-change.js.map

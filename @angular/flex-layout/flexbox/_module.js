@@ -14,6 +14,8 @@ import { FlexOrderDirective } from './api/flex-order';
 import { LayoutAlignDirective } from './api/layout-align';
 import { LayoutWrapDirective } from './api/layout-wrap';
 import { LayoutGapDirective } from './api/layout-gap';
+import { ClassDirective } from './api/class';
+import { StyleDirective } from './api/style';
 /**
  * Since the equivalent results are easily achieved with a css class attached to each
  * layout child, these have been deprecated and removed from the API.
@@ -33,6 +35,8 @@ var ALL_DIRECTIVES = [
     FlexAlignDirective,
     ShowDirective,
     HideDirective,
+    ClassDirective,
+    StyleDirective,
 ];
 /**
  *
@@ -40,19 +44,23 @@ var ALL_DIRECTIVES = [
 export var FlexLayoutModule = (function () {
     function FlexLayoutModule() {
     }
+    /** @deprecated */
     FlexLayoutModule.forRoot = function () {
-        return { ngModule: FlexLayoutModule, providers: [MediaMonitor] };
+        console.warn('FlexLayoutModule.forRoot() has been deprecated and is no longer needed.');
+        return {
+            ngModule: FlexLayoutModule
+        };
     };
     FlexLayoutModule.decorators = [
         { type: NgModule, args: [{
                     declarations: ALL_DIRECTIVES,
                     imports: [MediaQueriesModule],
                     exports: [MediaQueriesModule].concat(ALL_DIRECTIVES),
-                    providers: []
+                    providers: [MediaMonitor]
                 },] },
     ];
     /** @nocollapse */
     FlexLayoutModule.ctorParameters = function () { return []; };
     return FlexLayoutModule;
 }());
-//# sourceMappingURL=/Users/jelbourn/flex-layout/src/lib/flexbox/_module.js.map
+//# sourceMappingURL=/usr/local/google/home/tinagao/WebstormProjects/caretaker/flex-layout/src/lib/flexbox/_module.js.map

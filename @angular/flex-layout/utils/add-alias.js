@@ -1,7 +1,5 @@
 import { extendObject } from './object-extend';
 /**
- * @internal
- *
  * For the specified MediaChange, make sure it contains the breakpoint alias
  * and suffix (if available).
  */
@@ -11,4 +9,4 @@ export function mergeAlias(dest, source) {
         suffix: source.suffix
     } : {});
 }
-//# sourceMappingURL=/Users/jelbourn/flex-layout/src/lib/utils/add-alias.js.map
+//# sourceMappingURL=/usr/local/google/home/tinagao/WebstormProjects/caretaker/flex-layout/src/lib/utils/add-alias.js.map

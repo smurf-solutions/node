@@ -1,4 +1,6 @@
 # Angular 2 select component
+[![npm version](https://badge.fury.io/js/angular2-select.svg)](https://badge.fury.io/js/angular2-select)
+[![Build Status](https://travis-ci.org/basvandenberg/angular2-select.svg?branch=master)](https://travis-ci.org/basvandenberg/angular2-select)
 
 A native select component for angular 2, based on the select2 JQuery plugin.
 
@@ -104,6 +106,7 @@ var packages = {
 | closed        | `null`                     | If the select drop down is closed.                                       |
 | selected      | `option`\*                 | If an options is selected, returning the selected option.                |
 | deselected    | `option`\* or `[option]`\* | If one or more options are deselected, returning the selected option(s). |
+| noOptionsFound| `null`                     | When the filter result changes to 'no results found'.                    |
 
 \* `option` is an object with value and label (`{value: string, label: string}`)
 

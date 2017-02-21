@@ -2,49 +2,49 @@
   "_args": [
     [
       {
-        "raw": "angular2-select",
+        "raw": "angular2-select@1.0.0-beta.3",
         "scope": null,
         "escapedName": "angular2-select",
         "name": "angular2-select",
-        "rawSpec": "",
-        "spec": "latest",
-        "type": "tag"
+        "rawSpec": "1.0.0-beta.3",
+        "spec": "1.0.0-beta.3",
+        "type": "version"
       },
       "C:\\Users\\skota\\Work\\smart"
     ]
   ],
-  "_from": "angular2-select@latest",
-  "_id": "angular2-select@1.0.0-beta.2",
+  "_from": "angular2-select@1.0.0-beta.3",
+  "_id": "angular2-select@1.0.0-beta.3",
   "_inCache": true,
   "_location": "/angular2-select",
-  "_nodeVersion": "7.2.1",
+  "_nodeVersion": "4.2.6",
   "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/angular2-select-1.0.0-beta.2.tgz_1484206968152_0.44174380134791136"
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/angular2-select-1.0.0-beta.3.tgz_1486838713136_0.08061154349707067"
   },
   "_npmUser": {
     "name": "basvandenberg",
     "email": "b.a.vandenberg@gmail.com"
   },
-  "_npmVersion": "4.0.5",
+  "_npmVersion": "3.5.2",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "angular2-select",
+    "raw": "angular2-select@1.0.0-beta.3",
     "scope": null,
     "escapedName": "angular2-select",
     "name": "angular2-select",
-    "rawSpec": "",
-    "spec": "latest",
-    "type": "tag"
+    "rawSpec": "1.0.0-beta.3",
+    "spec": "1.0.0-beta.3",
+    "type": "version"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/angular2-select/-/angular2-select-1.0.0-beta.2.tgz",
-  "_shasum": "1f28801f2c36c53d1f39657210226b7d1164cb36",
+  "_resolved": "https://registry.npmjs.org/angular2-select/-/angular2-select-1.0.0-beta.3.tgz",
+  "_shasum": "9010e9683f2563a493acca1cd11658bbe0c28b98",
   "_shrinkwrap": null,
-  "_spec": "angular2-select",
+  "_spec": "angular2-select@1.0.0-beta.3",
   "_where": "C:\\Users\\skota\\Work\\smart",
   "author": {
     "name": "Bastiaan van den Berg",
@@ -84,10 +84,10 @@
   },
   "directories": {},
   "dist": {
-    "shasum": "1f28801f2c36c53d1f39657210226b7d1164cb36",
-    "tarball": "https://registry.npmjs.org/angular2-select/-/angular2-select-1.0.0-beta.2.tgz"
+    "shasum": "9010e9683f2563a493acca1cd11658bbe0c28b98",
+    "tarball": "https://registry.npmjs.org/angular2-select/-/angular2-select-1.0.0-beta.3.tgz"
   },
-  "gitHead": "fa5ff2796d54b376cbadc690d1c71970d0759e25",
+  "gitHead": "4c71368c50cf15d12c82c8646ac34bfd002e6865",
   "homepage": "https://basvandenberg.github.io/angular2-select",
   "keywords": [
     "angular",
@@ -113,5 +113,5 @@
     "url": "git+ssh://git@github.com/basvandenberg/angular2-select.git"
   },
   "scripts": {},
-  "version": "1.0.0-beta.2"
+  "version": "1.0.0-beta.3"
 }

@@ -1,8 +1,9 @@
 // Copyright (C) 2016 Sergey Akopkokhyants
 // This project is licensed under the terms of the MIT license.
 // https://github.com/akserg/ng2-toasty
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { isString, isNumber, isFunction } from './toasty.utils';
+import { Subject } from 'rxjs/Subject';
 /**
  * Options to configure specific Toast
  */
@@ -38,13 +39,11 @@ export var ToastyConfig = (function () {
         this.limit = 5;
         // Whether to show the 'X' icon to close the toast
         this.showClose = true;
-        // The window position where the toast pops up. Possible values
-        // bottom-right, bottom-left, top-right, top-left, top-center, bottom-center, center-center
+        // The window position where the toast pops up
         this.position = 'bottom-right';
         // How long (in miliseconds) the toasty shows before it's removed. Set to null/0 to turn off.
         this.timeout = 5000;
-        // What theme to use. Possible values:
-        // default, material or bootstrap
+        // What theme to use
         this.theme = 'default';
     }
     ToastyConfig.decorators = [
@@ -53,6 +52,19 @@ export var ToastyConfig = (function () {
     /** @nocollapse */
     ToastyConfig.ctorParameters = function () { return []; };
     return ToastyConfig;
+}());
+export var ToastyEventType;
+(function (ToastyEventType) {
+    ToastyEventType[ToastyEventType["ADD"] = 0] = "ADD";
+    ToastyEventType[ToastyEventType["CLEAR"] = 1] = "CLEAR";
+    ToastyEventType[ToastyEventType["CLEAR_ALL"] = 2] = "CLEAR_ALL";
+})(ToastyEventType || (ToastyEventType = {}));
+export var ToastyEvent = (function () {
+    function ToastyEvent(type, value) {
+        this.type = type;
+        this.value = value;
+    }
+    return ToastyEvent;
 }());
 export function toastyServiceFactory(config) {
     return new ToastyService(config);
@@ -66,19 +78,21 @@ export var ToastyService = (function () {
         // Init the counter
         this.uniqueCounter = 0;
         // ToastData event emitter
-        this.toastsEmitter = new EventEmitter();
+        // private toastsEmitter: EventEmitter<ToastData> = new EventEmitter<ToastData>();
         // Clear event emitter
-        this.clearEmitter = new EventEmitter();
+        // private clearEmitter: EventEmitter<number> = new EventEmitter<number>();
+        this.eventSource = new Subject();
+        this.events = this.eventSource.asObservable();
     }
     /**
      * Get list of toats
      */
-    ToastyService.prototype.getToasts = function () {
-        return this.toastsEmitter.asObservable();
-    };
-    ToastyService.prototype.getClear = function () {
-        return this.clearEmitter.asObservable();
-    };
+    // getToasts(): Observable<ToastData> {
+    //   return this.toastsEmitter.asObservable();
+    // }
+    // getClear(): Observable<number> {
+    //   return this.clearEmitter.asObservable();
+    // }
     /**
      * Create Toast of a default type
      */
@@ -162,7 +176,8 @@ export var ToastyService = (function () {
         toast.timeout = toastyOptions.hasOwnProperty('timeout') ? toastyOptions.timeout : this.config.timeout;
         // Push up a new toast item
         // this.toastsSubscriber.next(toast);
-        this.toastsEmitter.next(toast);
+        // this.toastsEmitter.next(toast);
+        this.emitEvent(new ToastyEvent(ToastyEventType.ADD, toast));
         // If we have a onAdd function, call it here
         if (toastyOptions.onAdd && isFunction(toastyOptions.onAdd)) {
             toastyOptions.onAdd.call(this, toast);
@@ -170,11 +185,13 @@ export var ToastyService = (function () {
     };
     // Clear all toasts
     ToastyService.prototype.clearAll = function () {
-        this.clearEmitter.next(null);
+        // this.clearEmitter.next(null);
+        this.emitEvent(new ToastyEvent(ToastyEventType.CLEAR_ALL));
     };
     // Clear the specific one
     ToastyService.prototype.clear = function (id) {
-        this.clearEmitter.next(id);
+        // this.clearEmitter.next(id);
+        this.emitEvent(new ToastyEvent(ToastyEventType.CLEAR, id));
     };
     // Checks whether the local option is set, if not,
     // checks the global config
@@ -187,6 +204,12 @@ export var ToastyService = (function () {
         }
         else {
             return true;
+        }
+    };
+    ToastyService.prototype.emitEvent = function (event) {
+        if (this.eventSource) {
+            // Push up a new event
+            this.eventSource.next(event);
         }
     };
     // Allowed THEMES

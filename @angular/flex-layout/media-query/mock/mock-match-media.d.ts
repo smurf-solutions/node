@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { NgZone } from '@angular/core';
 import { MatchMedia } from '../match-media';
 import { BreakPointRegistry } from '../breakpoints/break-point-registry';
@@ -8,6 +15,10 @@ import { BreakPointRegistry } from '../breakpoints/break-point-registry';
  */
 export declare class MockMatchMedia extends MatchMedia {
     private _breakpoints;
+    /**
+     * Special flag used to test BreakPoint registrations with MatchMedia
+     */
+    autoRegisterQueries: boolean;
     constructor(_zone: NgZone, _breakpoints: BreakPointRegistry);
     /**
      * Easy method to clear all listeners for all mediaQueries

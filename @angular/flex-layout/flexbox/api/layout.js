@@ -30,11 +30,13 @@ export var LayoutDirective = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    ;
     Object.defineProperty(LayoutDirective.prototype, "layoutXs", {
         set: function (val) { this._cacheInput('layoutXs', val); },
         enumerable: true,
         configurable: true
     });
+    ;
     Object.defineProperty(LayoutDirective.prototype, "layoutGtXs", {
         set: function (val) { this._cacheInput('layoutGtXs', val); },
         enumerable: true,
@@ -147,7 +149,7 @@ export var LayoutDirective = (function (_super) {
         return LAYOUT_VALUES.find(function (x) { return x === value; }) ? value : LAYOUT_VALUES[0]; // "row"
     };
     LayoutDirective.decorators = [
-        { type: Directive, args: [{ selector: "\n  [fxLayout],\n  [fxLayout.xs]\n  [fxLayout.gt-xs],\n  [fxLayout.sm],\n  [fxLayout.gt-sm]\n  [fxLayout.md],\n  [fxLayout.gt-md]\n  [fxLayout.lg],\n  [fxLayout.gt-lg],\n  [fxLayout.xl]\n" },] },
+        { type: Directive, args: [{ selector: "\n  [fxLayout],\n  [fxLayout.xs],\n  [fxLayout.gt-xs],\n  [fxLayout.sm],\n  [fxLayout.gt-sm],\n  [fxLayout.md],\n  [fxLayout.gt-md],\n  [fxLayout.lg],\n  [fxLayout.gt-lg],\n  [fxLayout.xl]\n" },] },
     ];
     /** @nocollapse */
     LayoutDirective.ctorParameters = function () { return [
@@ -169,4 +171,4 @@ export var LayoutDirective = (function (_super) {
     };
     return LayoutDirective;
 }(BaseFxDirective));
-//# sourceMappingURL=/Users/jelbourn/flex-layout/src/lib/flexbox/api/layout.js.map
+//# sourceMappingURL=/usr/local/google/home/tinagao/WebstormProjects/caretaker/flex-layout/src/lib/flexbox/api/layout.js.map

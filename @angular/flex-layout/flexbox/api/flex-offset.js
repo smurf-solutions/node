@@ -107,12 +107,13 @@ export var FlexOffsetDirective = (function (_super) {
     FlexOffsetDirective.prototype._buildCSS = function (offset) {
         var isPercent = String(offset).indexOf('%') > -1;
         var isPx = String(offset).indexOf('px') > -1;
-        if (!isPx && !isPercent && !isNaN(offset))
+        if (!isPx && !isPercent && !isNaN(offset)) {
             offset = offset + '%';
+        }
         return { 'margin-left': "" + offset };
     };
     FlexOffsetDirective.decorators = [
-        { type: Directive, args: [{ selector: "\n  [fxFlexOffset],\n  [fxFlexOffset.xs]\n  [fxFlexOffset.gt-xs],\n  [fxFlexOffset.sm],\n  [fxFlexOffset.gt-sm]\n  [fxFlexOffset.md],\n  [fxFlexOffset.gt-md]\n  [fxFlexOffset.lg],\n  [fxFlexOffset.gt-lg],\n  [fxFlexOffset.xl]\n" },] },
+        { type: Directive, args: [{ selector: "\n  [fxFlexOffset],\n  [fxFlexOffset.xs],\n  [fxFlexOffset.gt-xs],\n  [fxFlexOffset.sm],\n  [fxFlexOffset.gt-sm],\n  [fxFlexOffset.md],\n  [fxFlexOffset.gt-md],\n  [fxFlexOffset.lg],\n  [fxFlexOffset.gt-lg],\n  [fxFlexOffset.xl]\n" },] },
     ];
     /** @nocollapse */
     FlexOffsetDirective.ctorParameters = function () { return [
@@ -134,4 +135,4 @@ export var FlexOffsetDirective = (function (_super) {
     };
     return FlexOffsetDirective;
 }(BaseFxDirective));
-//# sourceMappingURL=/Users/jelbourn/flex-layout/src/lib/flexbox/api/flex-offset.js.map
+//# sourceMappingURL=/usr/local/google/home/tinagao/WebstormProjects/caretaker/flex-layout/src/lib/flexbox/api/flex-offset.js.map

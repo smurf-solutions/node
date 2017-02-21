@@ -13,8 +13,6 @@ var SelectComponent = (function () {
     function SelectComponent() {
         this.allowClear = false;
         this.disabled = false;
-        this.highlightColor = '#2196f3';
-        this.highlightTextColor = '#fff';
         this.multiple = false;
         this.noFilter = 0;
         this.notFoundMsg = 'No results found';
@@ -23,6 +21,7 @@ var SelectComponent = (function () {
         this.closed = new core_1.EventEmitter();
         this.selected = new core_1.EventEmitter();
         this.deselected = new core_1.EventEmitter();
+        this.noOptionsFound = new core_1.EventEmitter();
         this._value = [];
         // Selection state variables.
         this.hasSelected = false;
@@ -104,7 +103,10 @@ var SelectComponent = (function () {
         this.selectContainerClicked = true;
     };
     SelectComponent.prototype.onSingleFilterInput = function (term) {
-        this.optionList.filter(term);
+        var toEmpty = this.optionList.filter(term);
+        if (toEmpty) {
+            this.noOptionsFound.emit(null);
+        }
     };
     SelectComponent.prototype.onSingleFilterKeydown = function (event) {
         this.handleSingleFilterKeydown(event);
@@ -117,7 +119,10 @@ var SelectComponent = (function () {
         }
         this.updateFilterWidth();
         setTimeout(function () {
-            _this.optionList.filter(event.target.value);
+            var toEmpty = _this.optionList.filter(event.target.value);
+            if (toEmpty) {
+                _this.noOptionsFound.emit(null);
+            }
         });
     };
     SelectComponent.prototype.onMultipleFilterKeydown = function (event) {
@@ -167,12 +172,7 @@ var SelectComponent = (function () {
     Object.defineProperty(SelectComponent.prototype, "value", {
         /** Value. **/
         get: function () {
-            if (this._value.length === 0) {
-                return '';
-            }
-            else {
-                return this.multiple ? this._value : this._value[0];
-            }
+            return this.multiple ? this._value : this._value[0];
         },
         set: function (v) {
             if (typeof v === 'undefined' || v === null || v === '') {
@@ -181,19 +181,24 @@ var SelectComponent = (function () {
             else if (typeof v === 'string') {
                 v = [v];
             }
-            // TODO throw TypeError if v is not an Array.
-            if (v !== this._value) {
-                this._value = v;
+            else if (!Array.isArray(v)) {
+                throw new TypeError('Value must be a string or an array.');
+            }
+            if (!option_list_1.OptionList.equalValues(v, this._value)) {
                 this.optionList.value = v;
-                this.hasSelected = v.length > 0;
-                this.placeholderView = this.hasSelected ? '' : this.placeholder;
-                this.updateFilterWidth();
-                this.onChange(this.value);
+                this.valueChanged();
             }
         },
         enumerable: true,
         configurable: true
     });
+    SelectComponent.prototype.valueChanged = function () {
+        this._value = this.optionList.value;
+        this.hasSelected = this._value.length > 0;
+        this.placeholderView = this.hasSelected ? '' : this.placeholder;
+        this.updateFilterWidth();
+        this.onChange(this.value);
+    };
     /** Initialization. **/
     SelectComponent.prototype.updateOptionsList = function (firstTime) {
         var v;
@@ -203,6 +208,7 @@ var SelectComponent = (function () {
         this.optionList = new option_list_1.OptionList(this.options);
         if (!firstTime) {
             this.optionList.value = v;
+            this.valueChanged();
         }
     };
     /** Dropdown. **/
@@ -235,27 +241,20 @@ var SelectComponent = (function () {
     };
     /** Select. **/
     SelectComponent.prototype.selectOption = function (option) {
-        var _this = this;
         if (!option.selected) {
             this.optionList.select(option, this.multiple);
-            this.value = this.optionList.value;
+            this.valueChanged();
             this.selected.emit(option.undecoratedCopy());
-            setTimeout(function () {
-                if (_this.multiple) {
-                    _this.updateFilterWidth();
-                }
-            });
         }
     };
     SelectComponent.prototype.deselectOption = function (option) {
         var _this = this;
         if (option.selected) {
             this.optionList.deselect(option);
-            this.value = this.optionList.value;
+            this.valueChanged();
             this.deselected.emit(option.undecoratedCopy());
             setTimeout(function () {
                 if (_this.multiple) {
-                    _this.updateFilterWidth();
                     _this.updatePosition();
                     _this.optionList.highlight();
                     if (_this.isOpen) {
@@ -269,7 +268,7 @@ var SelectComponent = (function () {
         var selection = this.optionList.selection;
         if (selection.length > 0) {
             this.optionList.clearSelection();
-            this.value = this.optionList.value;
+            this.valueChanged();
             if (selection.length === 1) {
                 this.deselected.emit(selection[0].undecoratedCopy());
             }
@@ -285,8 +284,11 @@ var SelectComponent = (function () {
             this.deselectOption(option) : this.selectOption(option);
     };
     SelectComponent.prototype.selectHighlightedOption = function () {
-        this.selectOption(this.optionList.highlightedOption);
-        this.closeDropdown(true);
+        var option = this.optionList.highlightedOption;
+        if (option !== null) {
+            this.selectOption(option);
+            this.closeDropdown(true);
+        }
     };
     SelectComponent.prototype.deselectLast = function () {
         var sel = this.optionList.selection;
@@ -313,39 +315,42 @@ var SelectComponent = (function () {
     SelectComponent.prototype.handleSelectContainerKeydown = function (event) {
         var _this = this;
         var key = event.which;
-        if (key === this.KEYS.ESC || (key === this.KEYS.UP && event.altKey)) {
-            this.closeDropdown(true);
-        }
-        else if (key === this.KEYS.TAB) {
-            this.closeDropdown();
-        }
-        else if (key === this.KEYS.ENTER || key === this.KEYS.SPACE ||
-            (key === this.KEYS.DOWN && event.altKey)) {
-            /* FIREFOX HACK:
-             *
-             * The setTimeout is added to prevent the enter keydown event
-             * to be triggered for the filter input field, which causes
-             * the dropdown to be closed again.
-             */
-            this.isOpen ? this.selectHighlightedOption() :
-                setTimeout(function () { _this.openDropdown(); });
-        }
-        else if (key === this.KEYS.UP) {
-            if (this.isOpen) {
+        if (this.isOpen) {
+            if (key === this.KEYS.ESC ||
+                (key === this.KEYS.UP && event.altKey)) {
+                this.closeDropdown(true);
+            }
+            else if (key === this.KEYS.TAB) {
+                this.closeDropdown();
+            }
+            else if (key === this.KEYS.ENTER) {
+                this.selectHighlightedOption();
+            }
+            else if (key === this.KEYS.UP) {
                 this.optionList.highlightPreviousOption();
                 this.dropdown.moveHighlightedIntoView();
                 if (!this.filterEnabled) {
                     event.preventDefault();
                 }
             }
-        }
-        else if (key === this.KEYS.DOWN) {
-            if (this.isOpen) {
+            else if (key === this.KEYS.DOWN) {
                 this.optionList.highlightNextOption();
                 this.dropdown.moveHighlightedIntoView();
                 if (!this.filterEnabled) {
                     event.preventDefault();
                 }
+            }
+        }
+        else {
+            if (key === this.KEYS.ENTER || key === this.KEYS.SPACE ||
+                (key === this.KEYS.DOWN && event.altKey)) {
+                /* FIREFOX HACK:
+                 *
+                 * The setTimeout is added to prevent the enter keydown event
+                 * to be triggered for the filter input field, which causes
+                 * the dropdown to be closed again.
+                 */
+                setTimeout(function () { _this.openDropdown(); });
             }
         }
     };
@@ -420,6 +425,7 @@ var SelectComponent = (function () {
         'closed': [{ type: core_1.Output },],
         'selected': [{ type: core_1.Output },],
         'deselected': [{ type: core_1.Output },],
+        'noOptionsFound': [{ type: core_1.Output },],
         'selectionSpan': [{ type: core_1.ViewChild, args: ['selection',] },],
         'dropdown': [{ type: core_1.ViewChild, args: ['dropdown',] },],
         'filterInput': [{ type: core_1.ViewChild, args: ['filterInput',] },],

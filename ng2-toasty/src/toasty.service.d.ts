@@ -32,9 +32,19 @@ export declare class ToastData {
 export declare class ToastyConfig {
     limit: number;
     showClose: boolean;
-    position: string;
+    position: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left' | 'top-center' | 'bottom-center' | 'center-center';
     timeout: number;
-    theme: string;
+    theme: 'default' | 'material' | 'bootstrap';
+}
+export declare enum ToastyEventType {
+    ADD = 0,
+    CLEAR = 1,
+    CLEAR_ALL = 2,
+}
+export declare class ToastyEvent {
+    type: ToastyEventType;
+    value: any;
+    constructor(type: ToastyEventType, value?: any);
 }
 export declare function toastyServiceFactory(config: ToastyConfig): ToastyService;
 /**
@@ -44,14 +54,12 @@ export declare class ToastyService {
     private config;
     static THEMES: Array<string>;
     uniqueCounter: number;
-    private toastsEmitter;
-    private clearEmitter;
+    private eventSource;
+    events: Observable<ToastyEvent>;
     constructor(config: ToastyConfig);
     /**
      * Get list of toats
      */
-    getToasts(): Observable<ToastData>;
-    getClear(): Observable<number>;
     /**
      * Create Toast of a default type
      */
@@ -85,4 +93,5 @@ export declare class ToastyService {
     clearAll(): void;
     clear(id: number): void;
     private _checkConfigItem(config, options, property);
+    private emitEvent(event);
 }

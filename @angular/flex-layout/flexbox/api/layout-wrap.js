@@ -153,7 +153,7 @@ export var LayoutWrapDirective = (function (_super) {
         return value;
     };
     LayoutWrapDirective.decorators = [
-        { type: Directive, args: [{ selector: "\n  [fxLayoutWrap],\n  [fxLayoutWrap.xs]\n  [fxLayoutWrap.gt-xs],\n  [fxLayoutWrap.sm],\n  [fxLayoutWrap.gt-sm]\n  [fxLayoutWrap.md],\n  [fxLayoutWrap.gt-md]\n  [fxLayoutWrap.lg],\n  [fxLayoutWrap.gt-lg],\n  [fxLayoutWrap.xl]\n" },] },
+        { type: Directive, args: [{ selector: "\n  [fxLayoutWrap],\n  [fxLayoutWrap.xs],\n  [fxLayoutWrap.gt-xs],\n  [fxLayoutWrap.sm],\n  [fxLayoutWrap.gt-sm],\n  [fxLayoutWrap.md],\n  [fxLayoutWrap.gt-md],\n  [fxLayoutWrap.lg],\n  [fxLayoutWrap.gt-lg],\n  [fxLayoutWrap.xl]\n" },] },
     ];
     /** @nocollapse */
     LayoutWrapDirective.ctorParameters = function () { return [
@@ -176,4 +176,4 @@ export var LayoutWrapDirective = (function (_super) {
     };
     return LayoutWrapDirective;
 }(BaseFxDirective));
-//# sourceMappingURL=/Users/jelbourn/flex-layout/src/lib/flexbox/api/layout-wrap.js.map
+//# sourceMappingURL=/usr/local/google/home/tinagao/WebstormProjects/caretaker/flex-layout/src/lib/flexbox/api/layout-wrap.js.map

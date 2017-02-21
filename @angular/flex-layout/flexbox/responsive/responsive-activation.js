@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
 import { extendObject } from '../../utils/object-extend';
-/** @internal  */
 export var KeyOptions = (function () {
     function KeyOptions(baseKey, defaultValue, inputKeys) {
         this.baseKey = baseKey;
@@ -10,15 +10,14 @@ export var KeyOptions = (function () {
     return KeyOptions;
 }());
 /**
- * @internal
- *
- * ResponsiveActivation acts as a proxy between the MonitorMedia service (which emits mediaQuery changes)
- * and the fx API directives. The MQA proxies mediaQuery change events and notifies the directive
- * via the specified callback.
+ * ResponsiveActivation acts as a proxy between the MonitorMedia service (which emits mediaQuery
+ * changes) and the fx API directives. The MQA proxies mediaQuery change events and notifies the
+ * directive via the specified callback.
  *
  * - The MQA also determines which directive property should be used to determine the
  *   current change 'value'... BEFORE the original `onMediaQueryChanges()` method is called.
- * - The `ngOnDestroy()` method is also head-hooked to enable auto-unsubscribe from the MediaQueryServices.
+ * - The `ngOnDestroy()` method is also head-hooked to enable auto-unsubscribe from the
+ *   MediaQueryServices.
  *
  * NOTE: these interceptions enables the logic in the fx API directives to remain terse and clean.
  */
@@ -66,11 +65,18 @@ export var ResponsiveActivation = (function () {
          */
         get: function () {
             var key = this.activatedInputKey;
-            return this._hasKeyValue(key) ? this._lookupKeyValue(key) : this._options.defaultValue;
+            return this.hasKeyValue(key) ? this._lookupKeyValue(key) : this._options.defaultValue;
         },
         enumerable: true,
         configurable: true
     });
+    /**
+     * Fast validator for presence of attribute on the host element
+     */
+    ResponsiveActivation.prototype.hasKeyValue = function (key) {
+        var value = this._options.inputKeys[key];
+        return typeof value !== 'undefined';
+    };
     /**
      * Remove interceptors, restore original functions, and forward the onDestroy() call
      */
@@ -145,7 +151,7 @@ export var ResponsiveActivation = (function () {
      *     (since a different activate may be in use)
      */
     ResponsiveActivation.prototype._calculateActivatedValue = function (current) {
-        var currentKey = this._options.baseKey + current.suffix; // e.g. suffix == 'GtSm', _baseKey == 'hide'
+        var currentKey = this._options.baseKey + current.suffix; // e.g. suffix == 'GtSm',
         var newKey = this._activatedInputKey; // e.g. newKey == hideGtSm
         newKey = current.matches ? currentKey : ((newKey == currentKey) ? null : newKey);
         this._activatedInputKey = this._validateInputKey(newKey);
@@ -179,10 +185,6 @@ export var ResponsiveActivation = (function () {
     ResponsiveActivation.prototype._lookupKeyValue = function (key) {
         return this._options.inputKeys[key];
     };
-    ResponsiveActivation.prototype._hasKeyValue = function (key) {
-        var value = this._options.inputKeys[key];
-        return typeof value !== 'undefined';
-    };
     return ResponsiveActivation;
 }());
-//# sourceMappingURL=/Users/jelbourn/flex-layout/src/lib/flexbox/responsive/responsive-activation.js.map
+//# sourceMappingURL=/usr/local/google/home/tinagao/WebstormProjects/caretaker/flex-layout/src/lib/flexbox/responsive/responsive-activation.js.map

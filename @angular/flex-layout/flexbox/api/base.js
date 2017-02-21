@@ -1,3 +1,5 @@
+import { __platform_browser_private__ } from '@angular/platform-browser';
+var getDOM = __platform_browser_private__.getDOM;
 import { applyCssPrefixes } from '../../utils/auto-prefixer';
 import { ResponsiveActivation, KeyOptions } from '../responsive/responsive-activation';
 /** Abstract base class for the Layout API styling directives. */
@@ -13,6 +15,7 @@ export var BaseFxDirective = (function () {
          *  Dictionary of input keys with associated values
          */
         this._inputMap = {};
+        this._display = this._getDisplayStyle();
     }
     // *********************************************
     // Accessor Methods
@@ -35,6 +38,25 @@ export var BaseFxDirective = (function () {
     // *********************************************
     // Protected Methods
     // *********************************************
+    /**
+     * Was the directive's default selector used ?
+     * If not, use the fallback value!
+     */
+    BaseFxDirective.prototype._getDefaultVal = function (key, fallbackVal) {
+        var val = this._queryInput(key);
+        var hasDefaultVal = (val !== undefined && val !== null);
+        return (hasDefaultVal && val !== '') ? val : fallbackVal;
+    };
+    /**
+     * Quick accessor to the current HTMLElement's `display` style
+     * Note: this allows use to preserve the original style
+     * and optional restore it when the mediaQueries deactivate
+     */
+    BaseFxDirective.prototype._getDisplayStyle = function (source) {
+        var element = source || this._elementRef.nativeElement;
+        var value = element.style['display'] || getDOM().getComputedStyle(element)['display'];
+        return value.trim();
+    };
     /**
      * Applies styles given via string pair or object map to the directive element.
      */
@@ -94,16 +116,22 @@ export var BaseFxDirective = (function () {
          */
         get: function () {
             var obj = this._elementRef.nativeElement.childNodes;
-            var array = [];
+            var buffer = [];
             // iterate backwards ensuring that length is an UInt32
             for (var i = obj.length; i--;) {
-                array[i] = obj[i];
+                buffer[i] = obj[i];
             }
-            return array;
+            return buffer;
         },
         enumerable: true,
         configurable: true
     });
+    /**
+     * Fast validator for presence of attribute on the host element
+     */
+    BaseFxDirective.prototype.hasKeyValue = function (key) {
+        return this._mqActivation.hasKeyValue(key);
+    };
     return BaseFxDirective;
 }());
-//# sourceMappingURL=/Users/jelbourn/flex-layout/src/lib/flexbox/api/base.js.map
+//# sourceMappingURL=/usr/local/google/home/tinagao/WebstormProjects/caretaker/flex-layout/src/lib/flexbox/api/base.js.map

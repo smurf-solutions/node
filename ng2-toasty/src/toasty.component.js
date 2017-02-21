@@ -3,7 +3,7 @@
 // https://github.com/akserg/ng2-toasty
 import { Component, Input } from '@angular/core';
 import { isFunction } from './toasty.utils';
-import { ToastyService, ToastyConfig } from './toasty.service';
+import { ToastyService, ToastyConfig, ToastyEventType } from './toasty.service';
 /**
  * Toasty is container for Toast components
  */
@@ -58,28 +58,19 @@ export var ToastyComponent = (function () {
      */
     ToastyComponent.prototype.ngOnInit = function () {
         var _this = this;
-        // We listen our service to recieve new toasts from it
-        this.toastyService.getToasts().subscribe(function (toast) {
-            // If we've gone over our limit, remove the earliest
-            // one from the array
-            if (_this.toasts.length >= _this.config.limit) {
-                _this.toasts.shift();
+        // We listen events from our service
+        this.toastyService.events.subscribe(function (event) {
+            if (event.type === ToastyEventType.ADD) {
+                // Add the new one
+                var toast = event.value;
+                _this.add(toast);
             }
-            // Add toasty to array
-            _this.toasts.push(toast);
-            //
-            // If there's a timeout individually or globally,
-            // set the toast to timeout
-            if (toast.timeout) {
-                _this._setTimeout(toast);
-            }
-        });
-        // We listen clear all comes from service here.
-        this.toastyService.getClear().subscribe(function (id) {
-            if (id) {
+            else if (event.type === ToastyEventType.CLEAR) {
+                // Clear the one by number
+                var id = event.value;
                 _this.clear(id);
             }
-            else {
+            else if (event.type === ToastyEventType.CLEAR_ALL) {
                 // Lets clear all toasts
                 _this.clearAll();
             }
@@ -91,6 +82,24 @@ export var ToastyComponent = (function () {
      */
     ToastyComponent.prototype.closeToast = function (toast) {
         this.clear(toast.id);
+    };
+    /**
+     * Add new Toast
+     */
+    ToastyComponent.prototype.add = function (toast) {
+        // If we've gone over our limit, remove the earliest
+        // one from the array
+        if (this.toasts.length >= this.config.limit) {
+            this.toasts.shift();
+        }
+        // Add toasty to array
+        this.toasts.push(toast);
+        //
+        // If there's a timeout individually or globally,
+        // set the toast to timeout
+        if (toast.timeout) {
+            this._setTimeout(toast);
+        }
     };
     /**
      * Clear individual toast by id

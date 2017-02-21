@@ -128,9 +128,10 @@ export var LayoutAlignDirective = (function (_super) {
      */
     LayoutAlignDirective.prototype._onLayoutChange = function (direction) {
         var _this = this;
-        this._layout = (direction || '').toLowerCase().replace('-reverse', '');
-        if (!LAYOUT_VALUES.find(function (x) { return x === _this._layout; }))
+        this._layout = (direction || '').toLowerCase();
+        if (!LAYOUT_VALUES.find(function (x) { return x === _this._layout; })) {
             this._layout = 'row';
+        }
         var value = this._queryInput("align") || 'start stretch';
         if (this._mqActivation) {
             value = this._mqActivation.activatedInput;
@@ -138,7 +139,7 @@ export var LayoutAlignDirective = (function (_super) {
         this._allowStretching(value, this._layout || "row");
     };
     LayoutAlignDirective.prototype._buildCSS = function (align) {
-        var css = {}, _a = align.split(' '), main_axis = _a[0], cross_axis = _a[1];
+        var css = {}, _a = align.split(' '), main_axis = _a[0], cross_axis = _a[1]; // tslint:disable-line:variable-name
         css['justify-content'] = 'flex-start'; // default main axis
         css['align-items'] = 'stretch'; // default cross axis
         css['align-content'] = 'stretch'; // default cross axis
@@ -185,7 +186,7 @@ export var LayoutAlignDirective = (function (_super) {
      * NOTE: this is only done if the crossAxis is explicitly set to 'stretch'
      */
     LayoutAlignDirective.prototype._allowStretching = function (align, layout) {
-        var _a = align.split(' '), cross_axis = _a[1];
+        var _a = align.split(' '), cross_axis = _a[1]; // tslint:disable-line:variable-name
         if (cross_axis == 'stretch') {
             // Use `null` values to remove style
             this._applyStyleToElement({
@@ -196,7 +197,7 @@ export var LayoutAlignDirective = (function (_super) {
         }
     };
     LayoutAlignDirective.decorators = [
-        { type: Directive, args: [{ selector: "\n  [fxLayoutAlign],\n  [fxLayoutAlign.xs]\n  [fxLayoutAlign.gt-xs],\n  [fxLayoutAlign.sm],\n  [fxLayoutAlign.gt-sm]\n  [fxLayoutAlign.md],\n  [fxLayoutAlign.gt-md]\n  [fxLayoutAlign.lg],\n  [fxLayoutAlign.gt-lg],\n  [fxLayoutAlign.xl]\n" },] },
+        { type: Directive, args: [{ selector: "\n  [fxLayoutAlign],\n  [fxLayoutAlign.xs],\n  [fxLayoutAlign.gt-xs],\n  [fxLayoutAlign.sm],\n  [fxLayoutAlign.gt-sm],\n  [fxLayoutAlign.md],\n  [fxLayoutAlign.gt-md],\n  [fxLayoutAlign.lg],\n  [fxLayoutAlign.gt-lg],\n  [fxLayoutAlign.xl]\n" },] },
     ];
     /** @nocollapse */
     LayoutAlignDirective.ctorParameters = function () { return [
@@ -219,4 +220,4 @@ export var LayoutAlignDirective = (function (_super) {
     };
     return LayoutAlignDirective;
 }(BaseFxDirective));
-//# sourceMappingURL=/Users/jelbourn/flex-layout/src/lib/flexbox/api/layout-align.js.map
+//# sourceMappingURL=/usr/local/google/home/tinagao/WebstormProjects/caretaker/flex-layout/src/lib/flexbox/api/layout-align.js.map

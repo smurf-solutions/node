@@ -1,16 +1,21 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
 import { MediaChange, MediaQuerySubscriber } from '../../media-query/media-change';
 import { BreakPoint } from '../../media-query/breakpoints/break-point';
 import { MediaMonitor } from '../../media-query/media-monitor';
-/** @internal  */
 export declare type SubscriptionList = Subscription[];
-/** @internal  */
 export interface BreakPointX extends BreakPoint {
     key: string;
     baseKey: string;
 }
-/** @internal  */
 export declare class KeyOptions {
     baseKey: string;
     defaultValue: string | number | boolean;
@@ -22,15 +27,14 @@ export declare class KeyOptions {
     });
 }
 /**
- * @internal
- *
- * ResponsiveActivation acts as a proxy between the MonitorMedia service (which emits mediaQuery changes)
- * and the fx API directives. The MQA proxies mediaQuery change events and notifies the directive
- * via the specified callback.
+ * ResponsiveActivation acts as a proxy between the MonitorMedia service (which emits mediaQuery
+ * changes) and the fx API directives. The MQA proxies mediaQuery change events and notifies the
+ * directive via the specified callback.
  *
  * - The MQA also determines which directive property should be used to determine the
  *   current change 'value'... BEFORE the original `onMediaQueryChanges()` method is called.
- * - The `ngOnDestroy()` method is also head-hooked to enable auto-unsubscribe from the MediaQueryServices.
+ * - The `ngOnDestroy()` method is also head-hooked to enable auto-unsubscribe from the
+ *   MediaQueryServices.
  *
  * NOTE: these interceptions enables the logic in the fx API directives to remain terse and clean.
  */
@@ -64,6 +68,10 @@ export declare class ResponsiveActivation {
      */
     readonly activatedInput: any;
     /**
+     * Fast validator for presence of attribute on the host element
+     */
+    hasKeyValue(key: any): boolean;
+    /**
      * Remove interceptors, restore original functions, and forward the onDestroy() call
      */
     destroy(): void;
@@ -81,7 +89,7 @@ export declare class ResponsiveActivation {
      * Synchronizes change notifications with the current mq-activated @Input and calculates the
      * mq-activated input value or the default value
      */
-    _onMonitorEvents(change: MediaChange): void;
+    protected _onMonitorEvents(change: MediaChange): void;
     /**
      * Has the key been specified in the HTML markup and thus is intended
      * to participate in activation processes.
@@ -107,5 +115,4 @@ export declare class ResponsiveActivation {
      * Get the value (if any) for the directive instances @Input property (aka key)
      */
     private _lookupKeyValue(key);
-    private _hasKeyValue(key);
 }

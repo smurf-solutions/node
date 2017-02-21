@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { BreakPointRegistry } from './breakpoints/break-point-registry';
-import { BreakPointsProvider } from "./providers/break-points-provider";
 import { MatchMedia } from './match-media';
 import { MediaMonitor } from './media-monitor';
-import { MatchMediaObservableProvider } from './providers/match-media-observable-provider';
+import { ObservableMediaProvider } from './observable-media-service';
+import { BreakPointsProvider } from './breakpoints/break-points';
+import { BreakPointRegistry } from './breakpoints/break-point-registry';
 /**
  * *****************************************************************
  * Define module for the MediaQuery API
@@ -12,19 +12,14 @@ import { MatchMediaObservableProvider } from './providers/match-media-observable
 export var MediaQueriesModule = (function () {
     function MediaQueriesModule() {
     }
-    MediaQueriesModule.forRoot = function () {
-        return {
-            ngModule: MediaQueriesModule
-        };
-    };
     MediaQueriesModule.decorators = [
         { type: NgModule, args: [{
                     providers: [
                         MatchMedia,
-                        MediaMonitor,
-                        BreakPointRegistry,
                         BreakPointsProvider,
-                        MatchMediaObservableProvider // Allows easy subscription to the injectable `media$` matchMedia observable
+                        BreakPointRegistry,
+                        MediaMonitor,
+                        ObservableMediaProvider // easy subscription injectable `media$` matchMedia observable
                     ]
                 },] },
     ];
@@ -32,4 +27,4 @@ export var MediaQueriesModule = (function () {
     MediaQueriesModule.ctorParameters = function () { return []; };
     return MediaQueriesModule;
 }());
-//# sourceMappingURL=/Users/jelbourn/flex-layout/src/lib/media-query/_module.js.map
+//# sourceMappingURL=/usr/local/google/home/tinagao/WebstormProjects/caretaker/flex-layout/src/lib/media-query/_module.js.map

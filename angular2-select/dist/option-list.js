@@ -3,15 +3,14 @@ var option_1 = require('./option');
 var diacritics_1 = require('./diacritics');
 var OptionList = (function () {
     function OptionList(options) {
-        // Array<{ value: string; label: string;>) {
+        /* Consider using these for performance improvement. */
+        // private _selection: Array<Option>;
+        // private _filtered: Array<Option>;
+        // private _value: Array<string>;
         this._highlightedOption = null;
-        // Inject diacritics service.
-        // let inj = ReflectiveInjector.resolveAndCreate([DiacriticsService]);
-        // this.diacriticsService = inj.get(DiacriticsService);
         if (typeof options === 'undefined' || options === null) {
             options = [];
         }
-        // Initialize array of option objects.
         this._options = options.map(function (option) {
             var o = new option_1.Option(option.value, option.label);
             if (option.disabled) {
@@ -19,12 +18,11 @@ var OptionList = (function () {
             }
             return o;
         });
+        this._hasShown = this._options.length > 0;
         this.highlight();
     }
     Object.defineProperty(OptionList.prototype, "options", {
-        /**************************************************************************
-         * Options.
-         *************************************************************************/
+        /** Options. **/
         get: function () {
             return this._options;
         },
@@ -37,9 +35,7 @@ var OptionList = (function () {
         });
     };
     Object.defineProperty(OptionList.prototype, "value", {
-        /**************************************************************************
-         * Value.
-         *************************************************************************/
+        /** Value. **/
         get: function () {
             return this.selection.map(function (selectedOption) {
                 return selectedOption.value;
@@ -55,9 +51,7 @@ var OptionList = (function () {
         configurable: true
     });
     Object.defineProperty(OptionList.prototype, "selection", {
-        /**************************************************************************
-         * Selection.
-         *************************************************************************/
+        /** Selection. **/
         get: function () {
             return this.options.filter(function (option) {
                 return option.selected;
@@ -81,9 +75,7 @@ var OptionList = (function () {
         });
     };
     Object.defineProperty(OptionList.prototype, "filtered", {
-        /**************************************************************************
-         * Filter.
-         *************************************************************************/
+        /** Filter. **/
         get: function () {
             return this.options.filter(function (option) {
                 return option.shown;
@@ -93,20 +85,25 @@ var OptionList = (function () {
         configurable: true
     });
     OptionList.prototype.filter = function (term) {
+        var anyShown = false;
         if (term.trim() === '') {
             this.resetFilter();
+            anyShown = this.options.length > 0;
         }
         else {
             this.options.forEach(function (option) {
-                // let strip: any = this.diacriticsService.stripDiacritics;
-                // let l: string = strip.call(null, option.label).toUpperCase();
-                // let t: string = strip.call(null, term).toUpperCase();
                 var l = diacritics_1.Diacritics.strip(option.label).toUpperCase();
                 var t = diacritics_1.Diacritics.strip(term).toUpperCase();
                 option.shown = l.indexOf(t) > -1;
+                if (option.shown) {
+                    anyShown = true;
+                }
             });
         }
+        var toEmpty = this.hasShown && !anyShown;
         this.highlight();
+        this._hasShown = anyShown;
+        return toEmpty;
     };
     OptionList.prototype.resetFilter = function () {
         this.options.forEach(function (option) {
@@ -114,9 +111,7 @@ var OptionList = (function () {
         });
     };
     Object.defineProperty(OptionList.prototype, "highlightedOption", {
-        /**************************************************************************
-         * Highlight.
-         *************************************************************************/
+        /** Highlight. **/
         get: function () {
             return this._highlightedOption;
         },
@@ -126,14 +121,14 @@ var OptionList = (function () {
     OptionList.prototype.highlight = function () {
         var option = this.hasShownSelected() ?
             this.getFirstShownSelected() : this.getFirstShown();
-        if (option !== null) {
-            this.highlightOption(option);
-        }
+        this.highlightOption(option);
     };
     OptionList.prototype.highlightOption = function (option) {
         this.clearHighlightedOption();
-        option.highlighted = true;
-        this._highlightedOption = option;
+        if (option !== null) {
+            option.highlighted = true;
+            this._highlightedOption = option;
+        }
     };
     OptionList.prototype.highlightNextOption = function () {
         var shownOptions = this.filtered;
@@ -151,7 +146,7 @@ var OptionList = (function () {
     };
     OptionList.prototype.clearHighlightedOption = function () {
         if (this.highlightedOption !== null) {
-            this._highlightedOption.highlighted = false;
+            this.highlightedOption.highlighted = false;
             this._highlightedOption = null;
         }
     };
@@ -166,14 +161,14 @@ var OptionList = (function () {
     OptionList.prototype.getHighlightedIndex = function () {
         return this.getHighlightedIndexFromList(this.filtered);
     };
-    /**************************************************************************
-     * Util.
-     *************************************************************************/
-    OptionList.prototype.hasShown = function () {
-        return this.options.some(function (option) {
-            return option.shown;
-        });
-    };
+    Object.defineProperty(OptionList.prototype, "hasShown", {
+        /** Util. **/
+        get: function () {
+            return this._hasShown;
+        },
+        enumerable: true,
+        configurable: true
+    });
     OptionList.prototype.hasSelected = function () {
         return this.options.some(function (option) {
             return option.selected;
@@ -185,7 +180,7 @@ var OptionList = (function () {
         });
     };
     OptionList.prototype.getFirstShown = function () {
-        for (var _i = 0, _a = this._options; _i < _a.length; _i++) {
+        for (var _i = 0, _a = this.options; _i < _a.length; _i++) {
             var option = _a[_i];
             if (option.shown) {
                 return option;
@@ -194,13 +189,24 @@ var OptionList = (function () {
         return null;
     };
     OptionList.prototype.getFirstShownSelected = function () {
-        for (var _i = 0, _a = this._options; _i < _a.length; _i++) {
+        for (var _i = 0, _a = this.options; _i < _a.length; _i++) {
             var option = _a[_i];
             if (option.shown && option.selected) {
                 return option;
             }
         }
         return null;
+    };
+    // v0 and v1 are assumed not to be undefined or null.
+    OptionList.equalValues = function (v0, v1) {
+        if (v0.length !== v1.length) {
+            return false;
+        }
+        var a = v0.slice().sort();
+        var b = v1.slice().sort();
+        return a.every(function (v, i) {
+            return v === b[i];
+        });
     };
     return OptionList;
 }());

@@ -50,16 +50,20 @@ var SelectDropdownComponent = (function () {
     };
     /** Initialization. **/
     SelectDropdownComponent.prototype.optionsReset = function () {
-        this.optionList.resetFilter();
+        this.optionList.filter('');
         this.optionList.highlight();
     };
     /** View. **/
     SelectDropdownComponent.prototype.getOptionStyle = function (option) {
         if (option.highlighted) {
-            return {
-                'background-color': this.highlightColor,
-                'color': this.highlightTextColor
-            };
+            var style = {};
+            if (typeof this.highlightColor !== 'undefined') {
+                style['background-color'] = this.highlightColor;
+            }
+            if (typeof this.highlightTextColor !== 'undefined') {
+                style['color'] = this.highlightTextColor;
+            }
+            return style;
         }
         else {
             return {};

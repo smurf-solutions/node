@@ -26,6 +26,10 @@ export declare class ToastyComponent implements OnInit {
      */
     closeToast(toast: ToastData): void;
     /**
+     * Add new Toast
+     */
+    add(toast: ToastData): void;
+    /**
      * Clear individual toast by id
      * @param id is unique identifier of Toast
      */

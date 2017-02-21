@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { ElementRef, OnInit, OnChanges, OnDestroy, Renderer, SimpleChanges } from '@angular/core';
 import { BaseFxDirective } from './base';
 import { MediaMonitor } from '../../media-query/media-monitor';
@@ -27,6 +34,8 @@ export declare class FlexOrderDirective extends BaseFxDirective implements OnIni
      * mql change events to onMediaQueryChange handlers
      */
     ngOnInit(): void;
-    private _updateWithValue(value?);
-    private _buildCSS(value);
+    protected _updateWithValue(value?: string): void;
+    protected _buildCSS(value: any): {
+        order: any;
+    };
 }

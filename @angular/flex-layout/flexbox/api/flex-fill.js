@@ -28,7 +28,7 @@ export var FlexFillDirective = (function (_super) {
         this._applyStyleToElement(FLEX_FILL_CSS);
     }
     FlexFillDirective.decorators = [
-        { type: Directive, args: [{ selector: "\n  [fxFill],\n  [fxFill.xs]\n  [fxFill.gt-xs],\n  [fxFill.sm],\n  [fxFill.gt-sm]\n  [fxFill.md],\n  [fxFill.gt-md]\n  [fxFill.lg],\n  [fxFill.gt-lg],\n  [fxFill.xl]\n" },] },
+        { type: Directive, args: [{ selector: "\n  [fxFill],\n  [fxFlexFill]\n" },] },
     ];
     /** @nocollapse */
     FlexFillDirective.ctorParameters = function () { return [
@@ -38,4 +38,4 @@ export var FlexFillDirective = (function (_super) {
     ]; };
     return FlexFillDirective;
 }(BaseFxDirective));
-//# sourceMappingURL=/Users/jelbourn/flex-layout/src/lib/flexbox/api/flex-fill.js.map
+//# sourceMappingURL=/usr/local/google/home/tinagao/WebstormProjects/caretaker/flex-layout/src/lib/flexbox/api/flex-fill.js.map

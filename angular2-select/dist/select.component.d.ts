@@ -5,10 +5,7 @@ import { Option } from './option';
 import { OptionList } from './option-list';
 export declare const SELECT_VALUE_ACCESSOR: ExistingProvider;
 export declare class SelectComponent implements AfterViewInit, ControlValueAccessor, OnChanges, OnInit {
-    options: Array<{
-        value: string;
-        label: string;
-    }>;
+    options: Array<any>;
     allowClear: boolean;
     disabled: boolean;
     highlightColor: string;
@@ -21,6 +18,7 @@ export declare class SelectComponent implements AfterViewInit, ControlValueAcces
     closed: EventEmitter<null>;
     selected: EventEmitter<any>;
     deselected: EventEmitter<any>;
+    noOptionsFound: EventEmitter<null>;
     selectionSpan: any;
     dropdown: SelectDropdownComponent;
     filterInput: any;
@@ -71,6 +69,7 @@ export declare class SelectComponent implements AfterViewInit, ControlValueAcces
     setDisabledState(isDisabled: boolean): void;
     /** Value. **/
     value: any;
+    private valueChanged();
     /** Initialization. **/
     private updateOptionsList(firstTime);
     /** Dropdown. **/
